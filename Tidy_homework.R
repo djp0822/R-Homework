@@ -139,5 +139,13 @@ temp <- str_extract_all(polls$dates,"\\d+\\s[a-zA-Z]{3,5}")
 end_date <- sapply(temp, function(x) x[length(x)]) # take last element (handles polls that cross month boundaries)
 end_date
 
+### Text-Mining
+library(tidyverse)
+library(gutenbergr)
+library(tidytext)
+options(digits = 3)
+file = gutenberg_download(1342) #Pride and prej text
+#example = tibble(file)
+words = file %>% unnest_tokens(word, text)
 
 
