@@ -148,4 +148,10 @@ file = gutenberg_download(1342) #Pride and prej text
 #example = tibble(file)
 words = file %>% unnest_tokens(word, text)
 
+tidy_document <- words %>% filter(!word %in% stop_words$word & !str_detect(word, "^\\d"))
+  #anti_join(stop_words, by = c("word" = "word"))
 
+## A fin
+afinn <- get_sentiments("afinn") %>% select(word, value)
+afinn_sentiments = tidy_document %>% filter(tidy_document$word %in% afinn$word)
+t = afinn_sentiments %>% left_join(afinn, by = "word")
