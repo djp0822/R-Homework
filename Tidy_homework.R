@@ -155,3 +155,12 @@ tidy_document <- words %>% filter(!word %in% stop_words$word & !str_detect(word,
 afinn <- get_sentiments("afinn") %>% select(word, value)
 afinn_sentiments = tidy_document %>% filter(tidy_document$word %in% afinn$word)
 t = afinn_sentiments %>% left_join(afinn, by = "word")
+
+### Puerto Rico Project
+library(tidyverse)
+library(pdftools)
+options(digits = 3)    # report 3 significant digits
+fn <- system.file("extdata", "RD-Mortality-Report_2015-18-180531.pdf", package="dslabs")
+system2("open", args = fn)
+txt = pdf_text(fn)
+x = str_split(txt[[9]], "\n")
