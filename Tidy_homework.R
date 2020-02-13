@@ -164,3 +164,20 @@ fn <- system.file("extdata", "RD-Mortality-Report_2015-18-180531.pdf", package="
 system2("open", args = fn)
 txt = pdf_text(fn)
 x = str_split(txt[[9]], "\n")
+s <- x[[1]]
+header_index = str_which(s, '2015')
+str_split(s[header_index], ' ', simplify = TRUE)
+tail_index = str_which(s, 'Total')
+ones = which(str_count(s, '\\d+') == 1)
+s = remove(s, position = c(tail_index, ones, header_index))
+s <- str_remove_all(s, "[^\\d\\s]")
+s <- str_split_fixed(s, "\\s+", n = 6)[,1:5]
+row = s[,4]
+row2 = as.numeric(row[seq(3, 22)])
+mean(row2, na.rm = TRUE)
+
+row3 = as.numeric(row[seq(24,33)])
+
+
+
+
