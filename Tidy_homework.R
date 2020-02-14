@@ -165,18 +165,26 @@ system2("open", args = fn)
 txt = pdf_text(fn)
 x = str_split(txt[[9]], "\n")
 s <- x[[1]]
-header_index = str_which(s, '2015')
+header_index = str_which(s, '2015')[1]
 str_split(s[header_index], ' ', simplify = TRUE)
 tail_index = str_which(s, 'Total')
 ones = which(str_count(s, '\\d+') == 1)
-s = remove(s, position = c(tail_index, ones, header_index))
+out <- c(1:header_index, ones, tail_index:length(s))
+s <- s[-out]
+length(s)
+
 s <- str_remove_all(s, "[^\\d\\s]")
 s <- str_split_fixed(s, "\\s+", n = 6)[,1:5]
-row = s[,4]
-row2 = as.numeric(row[seq(3, 22)])
-mean(row2, na.rm = TRUE)
 
-row3 = as.numeric(row[seq(24,33)])
+row = s[,5]
+row2 = as.numeric(row)
+mean(row2[20:length(row2)], na.rm = TRUE)
+
+tab = s
+colnames(tab) = c('month', 'day', 'deaths')
+
+tab1 <- data.frame(tb2)
+tab1
 
 
 
