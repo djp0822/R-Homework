@@ -98,3 +98,8 @@ get_slope <- function(data){
   
 ### Question 4
 Teams_small  %>% do(tidy(lm(avg_attendance ~ runsPG + HRPG + W + yearID, data = .)))
+
+new_T = Teams %>% filter(yearID == 2002) %>% mutate(runsPG = R/G, HRPG = HR/G)
+
+model = lm(avg_attendance ~ runsPG + HRPG + W + yearID, data = Teams_small)
+predict_val = predict(model, new_T)
